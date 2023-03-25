@@ -34,6 +34,7 @@ public class Portal implements IPortal, ConfigurationSerializable {
     @Getter private final PortalPosition destPos;
     @Getter private final Vector size;
     @Getter private final boolean isCrossServer;
+    @Getter private final boolean isLastPlayerPosition;
     @Getter private final boolean isCustom;
     private boolean allowNonPlayerTeleportation;
 
@@ -59,6 +60,7 @@ public class Portal implements IPortal, ConfigurationSerializable {
         this.destPos = destPos;
         this.size = size;
         this.isCrossServer = destPos.isExternal();
+        this.isLastPlayerPosition = destPos.isLastPlayerPosition();
         this.isCustom = isCustom;
         this.allowNonPlayerTeleportation = allowNonPlayerTeleportation;
         // We do not need to get the destination entities if viewing entities through portals is disabled, or if entity support is disabled

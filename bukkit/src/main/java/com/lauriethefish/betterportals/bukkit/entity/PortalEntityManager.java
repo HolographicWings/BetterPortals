@@ -249,6 +249,7 @@ public class PortalEntityManager implements IPortalEntityManager {
         request.setDestWorldId(portal.getDestPos().getWorldId());
         request.setDestWorldName(portal.getDestPos().getWorldName());
         request.setDestServer(portal.getDestPos().getServerName());
+        request.setLastPlayerPos(portal.getDestPos().getLastPlayerPos());
         request.setPlayerId(player.getUniqueId());
 
         request.setDestX(destPosition.getX());

@@ -14,6 +14,7 @@ public class TeleportRequest extends Request    {
     private String destServer;
     private UUID destWorldId;
     private String destWorldName;
+    private Boolean lastPlayerPos;
 
     private double destX;
     private double destY;
