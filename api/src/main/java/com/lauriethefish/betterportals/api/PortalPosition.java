@@ -65,6 +65,11 @@ public class PortalPosition implements Serializable, ConfigurationSerializable {
      */
     @Getter @Setter private String serverName = null;
 
+    /**
+     * Is the portal brings to last player's position
+     */
+    @Getter @Setter private Boolean lastPlayerPos = false;
+
     // Since looking up the world of this portal is fairly expensive, we cache the location for later
     private transient Location locationCache = null;
 
@@ -75,12 +80,13 @@ public class PortalPosition implements Serializable, ConfigurationSerializable {
      * @param server Name of the destination server
      * @param worldName World of the portal on the destination server
      */
-    public PortalPosition(Vector location, PortalDirection direction, String server, String worldName) {
+    public PortalPosition(Vector location, PortalDirection direction, String server, String worldName, Boolean lastPlayerPos) {
         this.direction = direction;
         x = location.getX();
         y = location.getY();
         z = location.getZ();
         serverName = server;
+        this.lastPlayerPos = lastPlayerPos;
         this.worldName = worldName;
     }
 
@@ -99,6 +105,7 @@ public class PortalPosition implements Serializable, ConfigurationSerializable {
             worldName = location.getWorld().getName();
             worldId = location.getWorld().getUID();
         }
+        this.lastPlayerPos = lastPlayerPos;
     }
 
     /**
@@ -121,6 +128,8 @@ public class PortalPosition implements Serializable, ConfigurationSerializable {
         if(configServerName != null) {
             serverName = (String) configServerName;
         }
+        Object configLastPlayerPos = map.get("lastPlayerPos");
+    	lastPlayerPos = (configLastPlayerPos != null) ? (Boolean) configLastPlayerPos : false;
     }
 
     /**
@@ -193,6 +202,13 @@ public class PortalPosition implements Serializable, ConfigurationSerializable {
     public boolean isExternal() {
         return serverName != null;
     }
+    /**
+     * Finds if the portal brings to last player's position
+     * @return If the portal brings to last player's position
+     */
+    public boolean isLastPlayerPosition() {
+    	return lastPlayerPos;
+    }
 
     // Saves this portal position to a config section
     @Override
@@ -209,6 +225,7 @@ public class PortalPosition implements Serializable, ConfigurationSerializable {
         if(serverName != null) {
             map.put("serverName", serverName);
         }
+        map.put("lastPlayerPos", lastPlayerPos);
         return map;
     }
 
@@ -230,11 +247,12 @@ public class PortalPosition implements Serializable, ConfigurationSerializable {
                 other.z == z &&
                 (other.worldId == worldId || other.worldId.equals(worldId)) &&
                 (other.worldName == worldName || other.worldName.equals(worldName)) &&
-                (other.serverName == serverName || other.serverName.equals(serverName));
+                (other.serverName == serverName || other.serverName.equals(serverName))&&
+                (other.lastPlayerPos == lastPlayerPos || other.lastPlayerPos.equals(lastPlayerPos));
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(direction, x, y, z, worldId, worldName, serverName);
+        return Objects.hash(direction, x, y, z, worldId, worldName, serverName, lastPlayerPos);
     }
 }
