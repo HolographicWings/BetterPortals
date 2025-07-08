@@ -125,6 +125,11 @@ public class PlayerDataManager implements IPlayerDataManager, Listener   {
     }
 
     private void processTeleportOnJoin(@NotNull Player player, @NotNull TeleportRequest request) {
+    	
+    	if (!request.isRelocatePlayer()) {
+            return;
+        }
+    	
         World world = Bukkit.getWorld(request.getDestWorldId());
         if(world == null) {
             world = Bukkit.getWorld(request.getDestWorldName());

@@ -73,6 +73,7 @@ public interface IPortal extends BetterPortal {
      * @return If this portal allows items to be teleported
      */
     boolean allowsNonPlayerTeleportation();
+    boolean isRelocatePlayer();
 
     /**
      * Sets whether or not to allow item teleportation through this portal.
@@ -87,7 +88,8 @@ public interface IPortal extends BetterPortal {
                        @Assisted("id") UUID id,
                        @Nullable @Assisted("ownerId") UUID ownerId,
                        @Nullable @Assisted("name") String name,
-                       @Assisted("allowNonPlayerTeleportation") boolean allowNonPlayerTeleportation
+                       @Assisted("allowNonPlayerTeleportation") boolean allowNonPlayerTeleportation,
+                       @Assisted("relocatePlayer") boolean relocatePlayer
        );
     }
 }

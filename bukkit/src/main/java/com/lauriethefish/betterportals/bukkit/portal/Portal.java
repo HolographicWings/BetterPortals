@@ -34,6 +34,7 @@ public class Portal implements IPortal, ConfigurationSerializable {
     @Getter private final PortalPosition destPos;
     @Getter private final Vector size;
     @Getter private final boolean isCrossServer;
+    @Getter private final boolean relocatePlayer;
     @Getter private final boolean isCustom;
     private boolean allowNonPlayerTeleportation;
 
@@ -52,7 +53,8 @@ public class Portal implements IPortal, ConfigurationSerializable {
                   Logger logger, PortalTransformationsFactory transformationsFactory,
                   @Assisted("originPos") PortalPosition originPos, @Assisted("destPos") PortalPosition destPos,
                   @Assisted Vector size, @Assisted("isCustom") boolean isCustom,
-                  @Assisted("id") UUID id, @Nullable @Assisted("ownerId") UUID ownerId, @Nullable @Assisted("name") String name, @Assisted("allowNonPlayerTeleportation") boolean allowNonPlayerTeleportation) {
+                  @Assisted("id") UUID id, @Nullable @Assisted("ownerId") UUID ownerId, @Nullable @Assisted("name") String name, @Assisted("allowNonPlayerTeleportation") boolean allowNonPlayerTeleportation,
+                  @Assisted("relocatePlayer") boolean relocatePlayer) {
         this.portalManager = portalManager;
         this.logger = logger;
         this.originPos = originPos;
@@ -70,6 +72,8 @@ public class Portal implements IPortal, ConfigurationSerializable {
 
         this.transformations = transformationsFactory.create(this);
         this.viewableBlocks = viewableBlockArrayFactory.create(this);
+        
+        this.relocatePlayer = relocatePlayer;
     }
 
     @Override
@@ -184,6 +188,7 @@ public class Portal implements IPortal, ConfigurationSerializable {
         result.put("anchored", isCustom);
         result.put("id", id.toString());
         result.put("allowsNonPlayerTeleportation", allowsNonPlayerTeleportation());
+        result.put("relocatePlayer", relocatePlayer);
         if(ownerId != null) {result.put("owner", ownerId.toString());}
         if(name != null) {result.put("name", name);}
 
@@ -209,7 +214,8 @@ public class Portal implements IPortal, ConfigurationSerializable {
                 id,
                 ownerId,
                 (String) map.get("name"),
-                (boolean) map.getOrDefault("allowsNonPlayerTeleportation", true)
+                (boolean) map.getOrDefault("allowsNonPlayerTeleportation", true),
+                (boolean) map.getOrDefault("relocatePlayer", true)
         );
     }
 }

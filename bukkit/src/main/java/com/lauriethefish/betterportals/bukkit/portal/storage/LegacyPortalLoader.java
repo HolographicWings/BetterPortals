@@ -57,6 +57,6 @@ public class LegacyPortalLoader {
         String owner = section.getString("owner");
         UUID ownerId = owner == null ? null : UUID.fromString(owner);
 
-        return portalFactory.create(originPos, destPos, portalSize, anchored, UUID.randomUUID(), ownerId, null, true);
+        return portalFactory.create(originPos, destPos, portalSize, anchored, UUID.randomUUID(), ownerId, null, true, true);
     }
 }

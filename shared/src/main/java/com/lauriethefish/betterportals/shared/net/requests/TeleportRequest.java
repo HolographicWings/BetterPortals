@@ -28,4 +28,6 @@ public class TeleportRequest extends Request    {
     private double destVelX;
     private double destVelY;
     private double destVelZ;
+    
+    private boolean relocatePlayer;
 }

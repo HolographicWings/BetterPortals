@@ -118,13 +118,13 @@ public class CustomPortalCommands {
         }
 
         IPortal portal = portalFactory.create(origin.getPortalPosition(), dest.getPortalPosition(),
-                origin.getPortalSize(), true, UUID.randomUUID(), null, name, true);
+                origin.getPortalSize(), true, UUID.randomUUID(), null, name, true, true);
         portalManager.registerPortal(portal);
 
         // Add another portal going back if we're in two way mode
         if(twoWay) {
             IPortal reversePortal = portalFactory.create(dest.getPortalPosition(), origin.getPortalPosition(),
-                    origin.getPortalSize(), true, UUID.randomUUID(), null, name, true);
+                    origin.getPortalSize(), true, UUID.randomUUID(), null, name, true, true);
             portalManager.registerPortal(reversePortal);
         }
         sender.sendMessage(messageConfig.getChatMessage("portalCreated"));
@@ -260,6 +260,7 @@ public class CustomPortalCommands {
                 portal.getId(),
                 portal.getOwnerId(),
                 name,
+                true,
                 true
         );
 

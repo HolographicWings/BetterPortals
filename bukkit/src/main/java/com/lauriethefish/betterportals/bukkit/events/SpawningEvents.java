@@ -121,8 +121,8 @@ public class SpawningEvents implements Listener {
 
     // Registers both directions of the nether portal
     private void registerPortals(PortalSpawnPosition origin, PortalSpawnPosition destination, Vector size) {
-        IPortal portal = portalFactory.create(origin.toPortalPosition(), destination.toPortalPosition(), size, false, UUID.randomUUID(), null, null, true);
-        IPortal reversePortal = portalFactory.create(destination.toPortalPosition(), origin.toPortalPosition(), size, false, UUID.randomUUID(), null, null, true);
+        IPortal portal = portalFactory.create(origin.toPortalPosition(), destination.toPortalPosition(), size, false, UUID.randomUUID(), null, null, true, true);
+        IPortal reversePortal = portalFactory.create(destination.toPortalPosition(), origin.toPortalPosition(), size, false, UUID.randomUUID(), null, null, true, true);
 
         portalManager.registerPortal(portal);
         portalManager.registerPortal(reversePortal);
